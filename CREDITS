@@ -1,0 +1,62 @@
+hellanzb                                                                 CREDITS
+
+
+          ;;;;            .  .
+     ... :liil ...........:..:      ,._    ,._      ...................
+     :   l$$$:  _.,._       _..,,._ "$$$b. "$$$b.   `_..,,._        :::
+     :   $$$$.d$$$$$$L   .d$$$$$$$$L $$$$:  $$$$: .d$$$$$$$$$;      :::
+     :  :$$$$P`  T$$$$: :$$$$`  7$$F:$$$$  :$$$$ :$$$$: `$$$$ __  _  |_
+     :  l$$$F   :$$$$$  8$$$l"""""` l$$$l  l$$$l l$$$l   $$$L | ) /_ |_)
+     :  $$$$:   l$$$$$L `4$$$bcmang;ACID$::$$$88:`4$$$bmm$$$$;.     ...
+     :    ```      ```""              ```    ```    .    ```.     ..:::..
+     :..............................................:   v 0 . 1 3  `:::`
+                                                                     `
+
+--------------------------------------------------------------------------------
+
+o Philip Jenvey - Lead Developer
+
+o Alexander Botero-Lowry - Developer
+
+o Ben Bangert - Developer
+
+o Kraig Amador - Tester
+
+o Dan Klay - Tester
+
+o cmang - ASCII
+
+o Hellanzb.NZBLeecher uses code from pynewsleecher by:
+  - Freddie (freddie@madcowdisease.org)
+
+o Hellanzb.Growl is the Growl Network Protocol Client for Python by:
+  - Rui Carmo (http://the.taoofmac.com)
+
+o Hellanzb.HellaXMLRPC.HtPasswdAuth is originally Andrew Bennets'
+  htpasswdauth.py with slight modifications
+  
+o Hellanzb.HellaXMLRPC.xmlrpc is from twisted's web module (TwistedWeb-0.5.0),
+  with small modifications for HTTP basic auth enabled XMLRPC
+
+o Hellanzb.NZBLeecher.nntp is twisted's news module (TwistedNews-0.1.0) --
+  included so there is no TwistedNews dependency with Twisted-2.0
+
+o Hellanzb.Util.walk was written by Robin Parmar
+  (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/52664)
+
+o Hellanzb.external.elementtree.SimpleXMLWriter is from Fredrik Lundh's
+  elementtree-1.2.6, with added support for writing indented XML
+
+o Thanks to everyone who's contributed patches
+
+o Thanks to the various people who maintain hellanzb/hellahella packages
+  for different distrbutions
+
+o Thanks to the community (in particular #hellanzb on irc.freenode.net) for
+  all the support 
+
+      ________________________
+o     \   |    /  ___/_   _  /
+      |   _   /  \_   /   _  \
+      |___|   \___|   \___    \
+          |____\  |____\  |___/

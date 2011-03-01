@@ -1,0 +1,11 @@
+HellaNZB for Debian
+-------------------
+
+The default configuration file skips unraring during post-processing 
+(Hellanzb.SKIP_UNRAR is set to True). This is necessary to prevent the package
+from being moved from main to contrib.
+
+You can enable this feature again but you'll need to install the non-free
+unrar package.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>, Fri,  8 Sep 2006 21:12:36 +0200

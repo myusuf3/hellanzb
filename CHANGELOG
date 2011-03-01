@@ -1,0 +1,380 @@
+v0.13:
+
+o Can now optionally store encoded article segments in memory,
+  instead of disk. This can improve performance and CPU usage in
+  some cases. Set CACHE_LIMIT to a non zero value to enable.
+  
+  Hellanzb.CACHE_LIMIT = -1 # for an unlimited sized cache, or
+  Hellanzb.CACHE_LIMIT = '100MB' # for a certain size
+
+o Added SSL NNTP support: defineServer ssl=True. (patch
+  submitted by Oscar H)
+
+o Fixed the PostProcessor on Windows, which would produce the
+  error:
+
+  exceptions.ValueError: The usePTY parameter is not supported
+                         on Windows.
+
+o Fixed download problems on Windows, which would repeatedly
+  produce errors such as:
+
+  Archive segment: 2 does not have a valid CRC/yend line!
+
+  (thanks Ryan van Barneveld)
+
+o Fixed total archive time reported at the end of PostProcessing
+  (downloadTime was tallied as 0)
+
+o Fixed the Hellanzb.CATEGORIZE_DEST option: it was impossible to
+  disable in v0.12
+
+o Fixed PostProcessor handling of filenames containing double quotes
+
+o Fixed the error message:
+
+ exceptions.TypeError: errBack() takes exactly 2 arguments (1 given)
+
+ occurring during failed newzbin download attempts (thanks mke & JJ2)
+
+o Fixed the following error triggered after failed yenc CRC checks:
+
+  File "hellanzb-0.12/Hellanzb/NZBLeecher/ArticleDecoder.py", line 685,
+          in assembleNZBFile
+      decodedSegmentFile = open(nzbSegment.getDestination(), 'rb')
+  exceptions.IOError: [Errno 2] No such file or directory: 
+
+  This issue was introduced in v0.11.
+
+
+v0.12:
+
+o Fixed v3.newzbin.com's DirectNZB support which was broken as of
+  2007-02-18
+
+o Improved downloader performance (CPU used and max download speed),
+  especially for faster connections (such as over 40mb/s)
+
+o Added support for libnotify notifications (patch submitted by Ruben
+  Fonseca)
+
+o No longer hiding exceptions; many were previously only shown in the
+  debug log file
+
+o Now printing the 'Transferred MB in Time at Speed (Archive)' message
+  when the NZB is finished downloading, as opposed to when the archive
+  has finished decoding. The difference could be significant on slower
+  CPUs/ and or faster connections
+
+
+v0.11:
+
+o Fixed the error:
+  ImportError: cannot import name daemonize
+  with Twisted 2.5
+
+o Added the Hellanzb.CATEGORIZE_DEST option. Enabling it saves archives
+  into a sub directory of DEST_DIR named after their newzbin.com
+  category (when queued using the enqueuenewzbin XMLRPC call); e.g. Apps,
+  Movies, Music
+
+o enqueuenewzbin now downloads gzipped newzbin.com NZBs via the new v3
+  DirectNZB interface (Thanks DBordello and Thomas Hurst)
+
+o Added support for fillservers (by priority)
+
+o Now requeueing segments to other servers when they fail yDecode CRC
+  checks
+
+o Added optional support for converting MacBinary files
+
+o Now properly parsing v3.newzbin.com NZB names
+
+o Fixed the enqueuenewzbin error:
+  exceptions.AttributeError: 'module' object has no attribute 'b64encode'
+  on Python 2.3
+
+o No longer overwriting pre-existing files during rar extraction
+
+o Fixed handling of NZB files with invalid segment number and bytes
+  attributes
+
+o Fixed .zip files in the QUEUE_DIR constantly being rescanned for NZBs
+
+o Fixed a couple issues when antiIdle is disabled, including reconnection
+  failures after connections are lost
+
+o antiIdle disabled connections now avoid connecting at startup, and
+  disconnect immediately when there is nothing left to download. i.e. they
+  only are connected to the server when necessary. antiIdle disabled fill
+  servers only connect when they have something to download
+
+o Windows compatibility changes -- hellanzb has been reported to work on
+  Windows as of the 0.11 changes (thanks hax)
+
+v0.10:
+
+o Multiple servers are now represented with different colors in the scroller
+  output
+
+o Added the ability to run an external handler script on an archive after
+  post processing
+
+o Now including duplicate files during par2 repair
+
+o All filename paths in the config file now expand the "~" character to the
+  user's home directory
+
+o Added support for compressed (.zip) nzbs (thanks Freddie)
+
+o Fixed the following IOError occurring on malformed NZBs that include multiple
+<segment>s of the same segment number for a particular <file> (particularly
+those NZBs created by newzleech.com):
+
+IOError: [Errno 2] No such file or directory:
+'/nzb/daemon.temp/download-tmp/hellanzb-tmp-archvie.file0172.segment0001_ENC'
+
+o Added the ability to disconnect from the usenet server when idle (set
+  antiIdle = 0)
+
+o Fixed defineServer's bindTo option
+
+o Added the enqueueurl RPC call (downloads the NZB at the specified URL)
+
+o Better handling of slow NZB copies to the queue directory (won't queue the
+  NZB until it's fully copied)
+
+o Rars within rars are no longer deleted by the PostProcessor in some cases
+
+o A few misc. lockup/stability related fixes
+
+
+v0.9:
+
+NZBLeecher:
+
+o New feature: smartpar. hellanzb will now skip downloading extra par2/par1
+files. If the post processor finds the archive requires more par data for
+repair, hellanzb will automatically force the download of a minimal amount of
+extra pars immediately
+
+Daemon:
+o New remote call: 'setrarpass'
+(From hellanzb.py --help)
+
+  setrarpass nzbid pass Set the rarPassword for the NZB with the specified ID
+
+o Rar passwords are now saved in between CTRL-Cs.
+
+o No longer leaving enqueuednewzbin/dequeued/cancelled NZBs in the TEMP_DIR
+
+o Added the Hellanzb.UMASK option to force umask in daemon mode
+
+
+v0.8:
+
+Daemon:
+
+o Fixed a nasty bug with the 'clear' RPC call -- it was deleting all files in
+  the QUEUE_DIR (not just queued .nzb files). This bug prevented hellanzb from
+  working nicely with shared QUEUE_DIRs (such as your web browser's download
+  dir. This technique was even recommended in hellanzb's OS X install
+  document), in fact, it could cause unwanted data loss (thanks yak)
+
+o Quicker and more robust newzbin.com downloads (enqueuenewzbin call)
+
+NZBLeecher:
+
+o Added duplicate file detection/handling. Previously, NZB files containing
+  duplicate files could cause the downloader to stop (at the end of an archive)
+  under certain situations
+
+o Fixed a decoder bug (causing corrupt downloads) affecting some uuencoded
+  posts (and potentially some rare yEncoded posts)
+
+o Fixed a yDecode specific decoder bug (causing corrupt downloads)
+
+o Fixed a couple nasty bugs in the new downloader code (submitted by
+  bobmckenzie, thanks!)
+
+o Fixed "not1not2" KeyError exception in the multiple server pool automatic
+  failover code (submitted by bobmckenzie, thanks again!)
+
+o Fixed a bug causing the downloader to stop and the scroller to scroll
+  excessive lines, after a certain situation where hellanzb was paused twice
+
+o Correctly handling NZB files with out of order segments, previously this
+  could cause corruption (thanks spinez)
+
+o Fixed a bug causing the downloader to stop (at the end of an archive) after
+  pausing/continuing with bandwidth throttling enabled (MAX_RATE set to
+  a non zero value)
+
+
+v0.7:
+
+Daemon:
+
+o Added the -D option to run the hellanzb queue daemon as an actual unix daemon
+  process (forks and exits)
+
+o Changed most of the RPC calls to return the output of a list or status
+  call
+
+o Added the enqueuenewzbin RPC call, downloads the NZB with the specified NZB ID
+  from www.newzin.com, as long as you've included your newzbin login information
+  in hellanzb.conf
+
+o Changed the RPC list call to show NZB ids by default
+
+o RPC status call now shows queued MB, ETA, NZB ids and the value of
+  Hellanzb.MAX_RATE (if MAX_RATE is greater than 0)
+
+o Invalid NZB files weren't being removed from the list of current downloads
+  seen in the RPC status call (fixed)
+
+o Fixed an odd case where a segment with no articleData could prevent the queue
+  from continuing onto the next NZB. Also fixed a couple other possible bugs
+  that might have caused hellanzb to deadlock in between NZBs
+
+NZBLeecher:
+
+o Optimized the downloader. Using approximately 2-4% less CPU on an Athlon
+  2600+, FreeBSD 4.10
+
+o Added automatic failover -- multiple server pools (defineServer lines) will
+  now automatically requeue articles totally missing from their respective
+  servers for redownloading on other server pools (Thanks very much
+  Rubberneck!)
+
+PostProcessor:
+
+o Fixed the defunct process bug affecting some Linux distributions (thanks
+  georgek)
+
+o No longer using /bin/file for identifying rars. Running /bin/file via twisted
+  seems to have triggered a twisted bug where it wouldn't allow the /bin/file
+  process to exit cleanly (on some if not all platforms)
+
+o Added assembly support for split .ts files, recognizes patterns such as:
+    hello.001.TS                hi.0001.ts
+    hello.002.TS                hi.0002.ts
+                                hi.0003.ts
+
+ArticleDecoder:
+
+o Optimized the yDecoder. Benchmarks show it using approximately 6-8% less CPU
+  on an Athlon XP 2600+, FreeBSD 4.10
+
+o Added support for optionally yDecoding via the yenc python module (wraps a
+  yDecoder written in C). This provides better performance than the stock
+  yDecoder. Requires yenc-0.3, available from:
+  http://www.hellanzb.com/hellanzb-content/yenc-0.3.tar.gz
+
+
+v0.6:
+
+Daemon:
+
+o Added XMLRPC calls to control an already running hellanzb, similar to nzbq
+  and related programs. hellanzb, when invoked with a 'remote-call', will send
+  xmlrpc calls to the main hellanzb process:
+
+(From hellanzb.py --help)
+
+remote-calls (via XML-RPC):
+  cancel                Cancel the current download and move the current NZB to
+                        Hellanzb.TEMP_DIR
+  clear                 Clear the current nzb queue. Specify True as the second
+                        argument to clear anything currently downloading as
+                        well (like the cancel call)
+  continue              Continue downloading after being paused
+  dequeue nzbid         Remove the NZB with specified ID from the queue
+  down nzbid [shift]    Move the NZB with the specified ID down in the queue.
+                        The optional second argument specifys the number of
+                        spaces to shift by (Default: 1)
+  enqueue nzbfile       Add the specified NZB file to the end of the queue
+  force nzbid           Force hellanzb to begin downloading the NZB with the
+                        specified ID immediately, interrupting the current
+                        download
+  last nzbid            Move the NZB with the specified ID to the end of the
+                        queue
+  list [showids]        List the current queue. Specify True as the second
+                        argument to include the NZB ID in the listing
+  maxrate [newrate]     Return the Hellanzb.MAX_RATE (maximum download rate)
+                        value. Specify a second argument to change the value --
+                        a value of zero denotes no maximum rate
+  move nzbid index      Move the NZB with the specified ID to the specified
+                        index in the queue
+  next nzbid            Move the NZB with the specified ID to the beginning of
+                        the queue
+  pause                 Pause downloading
+  process archivedir    Post process the specified directory. The -p option is
+                        preferable -- it will do this for you, or use the
+                        current process if this xml rpc call fails
+  shutdown              Shutdown hellanzb. Will quietly kill any post
+                        processing threads that may exist
+  status                Return hellanzb's current status text
+  up nzbid [shift]      Move the NZB with the specified ID up in the queue. The
+                        optional second argument specifys the number of spaces
+                        to shift by (Default: 1)
+
+PostProcessor:
+
+o Multiple par2 file sets are now handled correctly (fixed)
+
+o Added config option DELETE_PROCESSED to delete the processed sub directories
+  after successful post processing
+
+o Post processing now also occurs on sub directories (and walks down the tree
+  of sub directories)
+
+o Post processing will now be automatically resumed upon restart of hellanzb,
+  if previously interrupted (such as via CTRL-C)
+
+o Timing unrar/par2 commands
+
+o par2 left-over repair ('.1') files now moved to PROCESSED_SUBDIR
+
+NZBLeecher:
+
+o Fixed bandwidth throttling to be a global value applying to all defineServer
+  lines in the config file. Set the Hellanzb.MAX_RATE value to enable
+
+o Supporting Usenet servers not requiring authorization
+
+o Better handling of invalid groups (failed nntp GROUP commands) (thanks
+  No1UKnow)
+
+o Now overwrites (re-downloads) 0 byte files
+
+o Fixed connect timeouts permanently killing connections (blank download status
+  lines, requiring CTRL-C & restart to un-blank)
+
+o Quicker automatic reconnections when they are lost
+
+ArticleDecoder:
+
+o Fixed the 0 CRC problem occurring with some files/servers (e.g.: 'CRC mismatch
+  00000000 != 3B0B8959') (Thanks drak0 and Weavus)
+
+Misc:
+
+o Fixed darwin port unrar dependency
+
+o Other small bug fixes/changes
+
+
+v0.5:
+
+o NZB downloader rewritten from scratch (and some pyNewsleecher code by Freddie
+  <freddie@madcowdisease.org>) to use the twisted framework. With new NZB
+  downloader status ticker
+
+o Automatic reconnection and anti idle of NNTP server connections
+
+o Bandwidth throttling 
+
+o Can resume interrupted (CTRL-C, etc) downloads, at the segment level 
+
+o Improved logging

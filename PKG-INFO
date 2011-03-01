@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: hellanzb
+Version: 0.13
+Summary: nzb downloader and post processor
+Home-page: http://www.hellanzb.com
+Author: Philip Jenvey
+Author-email: <pjenvey@groovie.org>
+License: BSD
+Description: hellanzb is an easy to use app designed to retrieve nzb files and fully process them. The goal being to make getting files from Usenet as hands-free as possible. Once fully installed, all that's required is moving an nzb file to the queue directory. The rest: downloading, par-checking, un-raring, etc. is done automatically by hellanzb.
+Platform: unix

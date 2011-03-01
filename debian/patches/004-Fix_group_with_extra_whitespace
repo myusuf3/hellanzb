@@ -1,0 +1,20 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 004-Fix_group_with_extra_whitespace
+## by HellaNZB upstream
+##
+## DP: Fix mishandling of group values with extra whitespace (goes into
+## DP: infinite loop)
+## DP: See http://www.hellanzb.com/trac/hellanzb/ticket/393
+## DP: And upstream fix: http://www.hellanzb.com/trac/hellanzb/changeset/1089
+
+@DPATCH@
+
+--- trunk/Hellanzb/NZBLeecher/Protocol.py (revision 1080)
++++ trunk/Hellanzb/NZBLeecher/Protocol.py (revision 1089)
+@@ -660,5 +660,5 @@
+ 
+     def gotGroup(self, group):
+-        group = group[3]
++        group = self.gettingGroup
+         self.activeGroups.append(group)
+         self.gettingGroup = None

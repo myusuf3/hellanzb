@@ -1,0 +1,42 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 005-Fix_crash_on_missing_unrar by
+## Severin Heiniger <severinheiniger@gmail.com>
+##
+## DP: This package doesn't depend on unrar and SKIP_UNRAR is set to True by the
+## DP: 002-Debianize_conf_file patch.
+## DP: However, if unrar isn't installed, HellaNZB crashes on startup no matter
+## DP: what SKIP_UNRAR is set to. This patch causes HellaNZB not to look for the
+## DP: unrar executable if SKIP_UNRAR is set to True.
+
+@DPATCH@
+diff -urNad hellanzb-0.13~/Hellanzb/Core.py hellanzb-0.13/Hellanzb/Core.py
+--- hellanzb-0.13~/Hellanzb/Core.py	2009-11-04 19:30:49.115313617 +0100
++++ hellanzb-0.13/Hellanzb/Core.py	2009-11-04 19:31:16.375292395 +0100
+@@ -84,10 +84,14 @@
+         else:
+             Hellanzb.MAX_RATE = int(Hellanzb.MAX_RATE)
+ 
+-        if not hasattr(Hellanzb, 'UNRAR_CMD') or Hellanzb.UNRAR_CMD is None:
+-            Hellanzb.UNRAR_CMD = assertIsExe(['rar', 'unrar'])
+-        else:
+-            Hellanzb.UNRAR_CMD = assertIsExe([Hellanzb.UNRAR_CMD])
++        if not hasattr(Hellanzb, 'SKIP_UNRAR') or Hellanzb.SKIP_UNRAR is None:
++            Hellanzb.SKIP_UNRAR = False
++
++        if not Hellanzb.SKIP_UNRAR:
++            if not hasattr(Hellanzb, 'UNRAR_CMD') or Hellanzb.UNRAR_CMD is None:
++                Hellanzb.UNRAR_CMD = assertIsExe(['rar', 'unrar'])
++            else:
++                Hellanzb.UNRAR_CMD = assertIsExe([Hellanzb.UNRAR_CMD])
+ 
+         if not hasattr(Hellanzb, 'PAR2_CMD') or Hellanzb.PAR2_CMD is None:
+             Hellanzb.PAR2_CMD = assertIsExe(['par2'])
+@@ -104,8 +108,6 @@
+         else:
+             Hellanzb.MACBINCONV_CMD = assertIsExe([Hellanzb.MACBINCONV_CMD])
+ 
+-        if not hasattr(Hellanzb, 'SKIP_UNRAR') or Hellanzb.SKIP_UNRAR is None:
+-            Hellanzb.SKIP_UNRAR = False
+         if not hasattr(Hellanzb, 'XMLRPC_SERVER_BIND') or Hellanzb.XMLRPC_SERVER_BIND is None:
+             print 'Warning: Hellanzb.XMLRPC_SERVER_BIND is not set, bind to 127.0.0.1'
+             Hellanzb.XMLRPC_SERVER_BIND = '127.0.0.1'

@@ -1,0 +1,105 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## python_26_fixes.dpatch by Alessio Treglia <quadrispro@ubuntu.com>
+##
+## DP: Fixes Python 2.6 deprecation warnings.
+## DP: Original patch is available at:
+## DP: http://www.hellanzb.com/trac/hellanzb/ticket/419
+
+@DPATCH@
+diff -urNad hellanzb-0.13~/Hellanzb/Growl.py hellanzb-0.13/Hellanzb/Growl.py
+--- hellanzb-0.13~/Hellanzb/Growl.py	2007-03-27 06:20:43.000000000 +0200
++++ hellanzb-0.13/Hellanzb/Growl.py	2009-04-21 11:20:38.000000000 +0200
+@@ -7,7 +7,13 @@
+ __contributors__ = "Ingmar J Stein (Growl Team)"
+ 
+ import struct
+-import md5
++
++# The md5 module has been deprecated as of Python 2.6.
++try:
++    from hashlib import md5
++except ImportError:
++    import md5
++
+ from socket import AF_INET, SOCK_DGRAM, socket
+ 
+ GROWL_UDP_PORT=9887
+@@ -51,7 +57,10 @@
+             self.data += encoded
+         for default in self.defaults:
+             self.data += struct.pack("B", default)
+-        self.checksum = md5.new()
++        try:
++            self.checksum = md5()
++        except TypeError:
++            self.checksum = md5.new()
+         self.checksum.update(self.data)
+         if self.password:
+             self.checksum.update(self.password)
+@@ -89,7 +98,10 @@
+         self.data += self.title
+         self.data += self.description
+         self.data += self.application
+-        self.checksum = md5.new()
++        try:
++            self.checksum = md5()
++        except TypeError:
++            self.checksum = md5.new()
+         self.checksum.update(self.data)
+         if password:
+             self.checksum.update(password)
+diff -urNad hellanzb-0.13~/Hellanzb/HellaXMLRPC/HtPasswdAuth.py hellanzb-0.13/Hellanzb/HellaXMLRPC/HtPasswdAuth.py
+--- hellanzb-0.13~/Hellanzb/HellaXMLRPC/HtPasswdAuth.py	2007-03-27 06:20:43.000000000 +0200
++++ hellanzb-0.13/Hellanzb/HellaXMLRPC/HtPasswdAuth.py	2009-04-21 11:18:51.000000000 +0200
+@@ -8,7 +8,13 @@
+ (c) Copyright 2005 Philip Jenvey
+ [See end of file]
+ """
+-import md5
++
++# The md5 module has been deprecated as of Python 2.6.
++try:
++    from hashlib import md5
++except ImportError:
++    import md5
++
+ from twisted.web import static
+ from twisted.web.resource import Resource
+ 
+@@ -70,7 +76,10 @@
+         
+         self.user = user
+         
+-        m = md5.new()
++        try:
++            m = md5()
++        except TypeError:
++            m = md5.new()
+         m.update(password)
+         del password
+         self.passwordDigest = m.digest()
+@@ -90,7 +99,10 @@
+     def authenticateUser(self, request):
+         username, password = request.getUser(), request.getPassword()
+         
+-        m = md5.new()
++        try:
++            m = md5()
++        except TypeError:
++            m = md5.new()
+         m.update(password)
+         
+         authenticated = username == self.user and self.passwordDigest == m.digest()
+diff -urNad hellanzb-0.13~/Hellanzb/Util.py hellanzb-0.13/Hellanzb/Util.py
+--- hellanzb-0.13~/Hellanzb/Util.py	2007-03-27 06:20:43.000000000 +0200
++++ hellanzb-0.13/Hellanzb/Util.py	2009-04-21 11:15:17.000000000 +0200
+@@ -28,9 +28,6 @@
+ 
+ class FatalError(Exception):
+     """ An error that will cause the program to exit """
+-    def __init__(self, message):
+-        self.args = [message]
+-        self.message = message
+ 
+ class EmptyForThisPool(Empty):
+     """ The queue is empty in terms of our current serverPool, but there are still segments to

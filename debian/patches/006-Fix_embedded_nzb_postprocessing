@@ -1,0 +1,28 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 006-Fix_embedded_nzb_postprocessing by Severin Heiniger <severinheiniger@gmail.com>
+##
+## DP: This bug has originally been triaged and patched by
+## DP: Marcel de Vries <marceldevries@phannet.cc>. Thanks alot!
+## DP: Post-processing of a download is stalled if a download includes an NZB
+## DP: file with the same name as the download because the `move` operation
+## DP: fails due to the already existing file. Additionally, `nzb.nzbFileName`
+## DP: is set to the wrong path. This patch fixes both issues.
+
+@DPATCH@
+diff -urNad hellanzb-0.13~/Hellanzb/Daemon.py hellanzb-0.13/Hellanzb/Daemon.py
+--- hellanzb-0.13~/Hellanzb/Daemon.py	2007-03-27 06:20:43.000000000 +0200
++++ hellanzb-0.13/Hellanzb/Daemon.py	2009-11-17 19:56:51.252730688 +0100
+@@ -353,8 +353,11 @@
+     nzb.destDir = processingDir
+     nzb.archiveDir = processingDir
+     
+-    move(nzb.nzbFileName, processingDir)
+-    nzb.nzbFileName = os.path.join(processingDir, nzb.nzbFileName)
++    dest_nzb = os.path.join(processingDir, os.path.basename(nzb.nzbFileName))
++    if os.path.isfile(dest_nzb):
++        os.remove(dest_nzb)
++    move(nzb.nzbFileName, dest_nzb)
++    nzb.nzbFileName = dest_nzb
+ 
+     os.mkdir(Hellanzb.WORKING_DIR)
+ 

@@ -1,0 +1,52 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 002-Debianize_conf_file by Adam Cécile (Le_Vert) <gandalf@le-vert.net>
+##
+## DP: Set various options to fit a Debian system.
+
+@DPATCH@
+
+diff -u hellanzb-0.11/etc/hellanzb.conf.sample hellanzb-0.11/etc/hellanzb.conf.sample.new
+--- hellanzb-0.11/etc/hellanzb.conf.sample	2007-02-10 15:21:34.000000000 +0100
++++ hellanzb-0.11/etc/hellanzb.conf.sample.new	2007-02-10 15:30:39.000000000 +0100
+@@ -10,10 +10,10 @@
+ # $Id: hellanzb.conf.sample 978 2007-01-29 03:00:30Z pjenvey $
+ 
+ # Log output to this file, set to None (no single quotes) for no logging
+-Hellanzb.LOG_FILE = '/var/tmp/hellanzb.log'
++Hellanzb.LOG_FILE = os.path.expanduser('~') + '/.hellanzb/log'
+ 
+ # Uncomment this line to log DEBUG messages to the specified file
+-#Hellanzb.DEBUG_MODE = '/var/tmp/hellanzb-debug.log'
++#Hellanzb.DEBUG_MODE = os.path.expanduser('~') + '/.hellanzb/log-debug'
+ 
+ # Automatically roll over both log files when they reach LOG_FILE_MAX_BYTES
+ # size
+@@ -55,13 +55,13 @@
+ 
+ 
+ # Important locations
+-Hellanzb.PREFIX_DIR = '/ext2/'
++Hellanzb.PREFIX_DIR = os.path.expanduser('~') + '/.hellanzb/'
+ 
+ # Where to put queued .nzb files
+ Hellanzb.QUEUE_DIR = Hellanzb.PREFIX_DIR + 'nzb/daemon.queue/'
+ 
+ # Where the fully processed archives go
+-Hellanzb.DEST_DIR = Hellanzb.PREFIX_DIR + 'usenet/'
++Hellanzb.DEST_DIR = Hellanzb.PREFIX_DIR + 'done/'
+ 
+ # The .nzb currently being downloaded is stored here
+ Hellanzb.CURRENT_DIR = Hellanzb.PREFIX_DIR + 'nzb/daemon.current/'
+@@ -105,10 +105,10 @@
+ #Hellanzb.UNRAR_CMD = None
+ 
+ # Supply a path to the par2 command
+-#Hellanzb.PAR2_CMD = None
++Hellanzb.PAR2_CMD = '/usr/bin/par2'
+ 
+ # Skip unraring during post processing
+-#Hellanzb.SKIP_UNRAR = False
++Hellanzb.SKIP_UNRAR = True
+ 
+ # Supply a path to the optional macbinconv command (for converting MacBinary
+ # files)

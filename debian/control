@@ -1,0 +1,20 @@
+Source: hellanzb
+Section: net
+Priority: extra
+Maintainer: Adam Cécile (Le_Vert) <gandalf@le-vert.net>
+Build-Depends: debhelper (>= 5.0.37.2), dpatch
+Build-Depends-Indep: python-all (>= 2.5.4), python-all, python-support (>= 0.5.3)
+Standards-Version: 3.8.4
+Homepage: http://www.hellanzb.com/
+
+Package: hellanzb
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-twisted-core (>= 2.0), python-twisted-web, par2 (>= 0.4), python-openssl
+Recommends: python-yenc
+Suggests: unrar (>= 3.41)
+Description: Newzbin (nzb) & BinNews (bns) files downloader and post-processor
+ Python application designed for *nix environments that retrieves nzb files and
+ fully processes them. The goal being to make getting files from Usenet as
+ hands-free as possible. Once fully installed, all thats required is moving an
+ nzb file to the queue directory. The rest; fetching, par-checking, un-raring,
+ etc. is taken care of by hellanzb.

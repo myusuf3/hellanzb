@@ -1,0 +1,152 @@
+.TH HELLANZB 1 "September 2006" "Version 0.10"
+.SH NAME
+hellanzb - a nzb downloader and post processor
+.SH SYNOPSIS
+.B
+hellanzb
+[options] [remote\-call] [remote\-call\-options]
+.SH DESCRIPTION
+Python application designed for *nix environments that retrieves nzb files and fully processes them. The goal being to make getting files from Usenet as hands-free as possible. Once fully installed, all thats required is moving an nzb file to the queue directory. The rest; fetching, par-checking, un-raring, etc. is taken care of by hellanzb.
+.SH OPTIONS 
+.B
+hellanzb
+will by default (no remote\-call specified) start its one and only queue daemon. Specifying a remote call will attempt to talk to that already running queue daemon via XML\-RPC.
+.SS "remote-calls (via XML-RPC):"
+.TP
+cancel
+Cancel the current download and move the current NZB to
+Hellanzb.TEMP_DIR
+.TP
+clear
+Clear the current nzb queue. Specify True as the second
+argument to clear anything currently downloading as
+well (like the cancel call)
+.TP
+continue
+Continue downloading after being paused
+.TP
+dequeue nzbid
+Remove the NZB with specified ID from the queue
+.TP
+down nzbid [shift]
+Move the NZB with the specified ID down in the queue.
+The optional second argument specifies the number of
+spaces to shift by (Default: 1)
+.TP
+enqueue nzbfile
+Add the specified NZB file to the end of the queue
+.TP
+enqueuenewzbin nzbid
+Download the NZB with the specified NZB ID from
+www.newzbin.com, and enqueue it
+.TP
+force nzbid
+Force hellanzb to begin downloading the NZB with the
+specified ID immediately, interrupting the current
+download
+.TP
+last nzbid
+Move the NZB with the specified ID to the end of the
+queue
+.TP
+list [excludeids]
+List the NZBs in the queue, along with their NZB IDs.
+Specify True as the second argument to exclude the NZB
+ID in the listing
+.TP
+maxrate [newrate]
+Return the Hellanzb.MAX_RATE (maximum download rate)
+value. Specify a second argument to change the value \fB\-\-\fR
+a value of zero denotes no maximum rate
+.TP
+move nzbid index
+Move the NZB with the specified ID to the specified
+index in the queue
+.TP
+next nzbid
+Move the NZB with the specified ID to the beginning of
+the queue
+.TP
+pause
+Pause downloading
+.TP
+process archivedir
+Post process the specified directory. The \fB\-p\fR option is
+preferable \fB\-\-\fR it will do this for you, or use the
+current process if this XML\-RPC call fails
+.TP
+setrarpass nzbid pass Set the rarPassword for the NZB with the specified ID
+.TP
+shutdown
+Shutdown hellanzb. Will quietly kill any post processing threads that may exist
+.TP
+status
+Return hellanzb's current status text
+.TP
+up nzbid [shift]
+Move the NZB with the specified ID up in the queue. The
+optional second argument specifies the number of spaces
+to shift by (Default: 1)
+.SS "options:"
+.TP
+\fB\-\-version\fR
+show program's version number and exit
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+show this help message and exit
+.TP
+\fB\-c\fR CONFIGFILE, \fB\-\-config\fR=\fICONFIGFILE\fR
+specify the configuration file
+.TP
+\fB\-l\fR LOGFILE, \fB\-\-log\-file\fR=\fILOGFILE\fR
+specify the log file (overwrites the Hellanzb.LOG_FILE
+config file setting)
+.TP
+\fB\-d\fR DEBUGLOGFILE, \fB\-\-debug\-file\fR=\fIDEBUGLOGFILE\fR
+specify the debug log file (turns on debugging
+output/overwrites the Hellanzb.DEBUG_MODE config file
+setting)
+.TP
+\fB\-D\fR, \fB\-\-daemon\fR
+run hellanzb as a daemon process (fork and exit)
+.TP
+\fB\-p\fR POSTPROCESSDIR, \fB\-\-post\-process\-dir\fR=\fIPOSTPROCESSDIR\fR
+post\-process the specified nzb archive dir either in
+an already running hellanzb (via xmlrpc) if one is
+available, otherwise in the current process. then exit
+.TP
+\fB\-P\fR RARPASSWORD, \fB\-\-rar\-password\fR=\fIRARPASSWORD\fR
+when used with the \fB\-p\fR option, specifies the nzb
+archive's rar password
+.TP
+\fB\-L\fR, \fB\-\-local\-post\-process\fR
+when used with the \fB\-p\fR option, do the post processing
+work in the current process (do not attempt to contact
+an already running queue daemon)
+.TP
+\fB\-r\fR RPCSERVER, \fB\-\-rpc\-server\fR=\fIRPCSERVER\fR
+specify the rpc server hostname (overwrites
+Hellanzb.XMLRPC_SERVER config file setting)
+.TP
+\fB\-s\fR RPCPASSWORD, \fB\-\-rpc\-password\fR=\fIRPCPASSWORD\fR
+specify the rpc server password (overwrites
+Hellanzb.XMLRPC_PASSWORD config file setting)
+.TP
+\fB\-t\fR RPCPORT, \fB\-\-rpc\-port\fR=\fIRPCPORT\fR
+specify the rpc server port (overwrites
+Hellanzb.XMLRPC_PORT config file setting)
+.SH FILES
+.TP
+.B $HOME/.hellanzb/hellanzb.conf 
+User specific configuration file.
+.TP
+.B /etc/hellanzb.conf 
+Default configuration file for all users (will be overrided by the file above).
+.SH AUTHOR
+This manual page was written by Adam Cecile <gandalf@le-vert.net> for the Debian system (but may be used by others).
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU General Public License, Version 2 or any later version published by the Free Software Foundation
+On Debian systems, the complete text of the GNU General Public License can be found in /usr/share/common-licenses/GPL.
+.SH "SEE ALSO"
+.B
+Homepage: 
+http://www.hellanzb.com/

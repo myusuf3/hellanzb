@@ -1,0 +1,17 @@
+hellanzb (0.11-1) experimental; urgency=low
+
+  In previous versions, the HellaNZB XMLRPC server accepted connections from
+  anywhere. Not changing the default password exposed the user to several
+  security issues.
+
+  Therefore, a new configuration directive named Hellanzb.XMLRPC_SERVER_BIND
+  has been added. If it's not set, remote access to the XMLRPC server is
+  disabled (bound to 127.0.0.1).
+
+  To reproduce the same behavior as previous versions, just add
+  Hellanzb.XMLRPC_SERVER_BIND = '0.0.0.0' to hellanzb.conf.
+
+  Please add Hellanzb.XMLRPC_SERVER_BIND to your configuration file.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Sat, 10 Feb 2007 15:01:20 +0100
+

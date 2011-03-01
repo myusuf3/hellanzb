@@ -1,0 +1,67 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# Include dpatch targets
+include /usr/share/dpatch/dpatch.make
+
+# Install directory
+DESTDIR   = $(CURDIR)/debian/hellanzb
+# Current python version
+PYDEF     = $(shell pyversions -d)
+
+# Added for Python 2.6 site packages directory change
+include /usr/share/python/python.mk
+SITEDIR = $(call py_sitename, $(PYDEF))
+
+build: patch
+
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	rm -rf build/
+	find . -name "*.pyc" -exec rm -f {} \;
+	dh_clean 
+
+install: build install-prereq install-python install-finish
+
+install-prereq: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+
+install-python: install-prereq
+	python setup.py install --prefix=$(DESTDIR)/usr --no-compile $(py_setup_install_args)
+
+install-finish: install-python
+	# Remove docs and conf installed by setup.py
+	rm -rf $(DESTDIR)/usr/share $(DESTDIR)/usr/etc/
+	# Remove .py
+	mv $(DESTDIR)/usr/bin/hellanzb.py $(DESTDIR)/usr/bin/hellanzb
+	# Remove interpreter in python modules
+	sed -i -e '0,/^.*$$/s///' $(DESTDIR)/usr/lib/$(PYDEF)/$(SITEDIR)/Hellanzb/Growl.py
+	# Install conf file
+	install -D -m 644 etc/hellanzb.conf.sample $(DESTDIR)/etc/hellanzb.conf
+
+binary-indep: install
+	dh_testdir -i
+	dh_testroot -i
+	dh_install -i
+	dh_installchangelogs -i CHANGELOG
+	dh_installdocs -i
+	dh_installman -i
+	dh_link -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_pysupport -i
+	dh_installdeb -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch: install
+
+binary: binary-indep binary-arch
+.PHONY: clean binary-indep binary-arch binary install

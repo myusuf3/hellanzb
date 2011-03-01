@@ -1,0 +1,91 @@
+This package was debianized by Adam Cécile (Le_Vert) <gandalf@le-vert.net> on
+Fri,  8 Sep 2006 21:12:36 +0200.
+
+It was downloaded from http://www.hellanzb.com/
+
+Upstream Author: Philip Jenvey <pjenvey@groovie.org>
+                 Ben Bangert <ben@groovie.org>
+
+Copyright: (C) 2005, Philip Jenvey <pjenvey@groovie.org>
+           (C) 2005, Ben Bangert <ben@groovie.org>
+
+License:
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted under the terms of the BSD License.
+
+   THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+   ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+   FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+   OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGE.
+
+On Debian systems, the complete text of the BSD License can be
+found in `/usr/share/common-licenses/BSD'.
+
+All files except those listed below are distributed under the terms of the
+BSD license with the copyright above.
+
+
+
+"Hellanzb/Growl.py" is (C) 2004 Rui Carmo and released under the terms of
+the BSD License.
+
+"Hellanzb/external/elementtree/SimpleXMLWriter.py" is (C) 2001-2004
+Fredrik Lundh and distributed under the terms of the license below :
+
+   By obtaining, using, and/or copying this software and/or its
+   associated documentation, you agree that you have read, understood,
+   and will comply with the following terms and conditions:
+
+   Permission to use, copy, modify, and distribute this software and
+   its associated documentation for any purpose and without fee is
+   hereby granted, provided that the above copyright notice appears in
+   all copies, and that both that copyright notice and this permission
+   notice appear in supporting documentation, and that the name of
+   Secret Labs AB or the author not be used in advertising or publicity
+   pertaining to distribution of the software without specific, written
+   prior permission.
+
+   SECRET LABS AB AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD
+   TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANT-
+   ABILITY AND FITNESS.  IN NO EVENT SHALL SECRET LABS AB OR THE AUTHOR
+   BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY
+   DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+   WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+   ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+   OF THIS SOFTWARE.
+
+"Hellanzb/HellaXMLRPC/xmlrpc.py" and "Hellanzb/NZBLeecher/nntp.py" are
+(C) 2001-2004 Twisted Matrix Laboratories and distributed under the terms
+of the license below :
+
+   Permission is hereby granted, free of charge, to any person obtaining
+   a copy of this software and associated documentation files (the
+   "Software"), to deal in the Software without restriction, including
+   without limitation the rights to use, copy, modify, merge, publish,
+   distribute, sublicense, and/or sell copies of the Software, and to
+   permit persons to whom the Software is furnished to do so, subject to
+   the following conditions:
+
+   The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+The Debian packaging is Copyright (C) 2006-2009, Adam Cécile (Le_Vert)
+<gandalf@le-vert.net> and is licensed under the GPL,
+see `/usr/share/common-licenses/GPL'.

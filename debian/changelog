@@ -1,0 +1,137 @@
+hellanzb (0.13-6.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Drop architecture restrictions from the Suggest field (closes: #581300).
+
+ -- Jakub Wilk <jwilk@debian.org>  Fri, 16 Jul 2010 12:13:35 +0200
+
+hellanzb (0.13-6) unstable; urgency=low
+
+  * ACK previous NMUs, thanks a lot.
+  * Merge patch from Eric Evans to fix compatibility with newer twisted
+    releases, thanks (Closes: #573221).
+  * Bump Standards-Version to 3.8.4.
+  * Add missing ${misc:Depends} dependency.
+  * Build depends on python-all instead of python-all-dev.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Fri, 12 Mar 2010 14:53:32 +0100
+
+hellanzb (0.13-5.4) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add debian/patches/006-Fix_embedded_nzb_postprocessing to fix
+    post-processing in case of an embedded NZB file.
+    Patch by Marcel de Vries (Closes: #556779).
+  * Add debian/patches/100-python_26_fixes to fix Python 2.6
+    deprecation warnings. Patch by Alessio Treglia (Closes: #555207).
+
+ -- Severin Heiniger <severinheiniger@gmail.com>  Tue, 17 Nov 2009 20:14:52 +0100
+
+hellanzb (0.13-5.3) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Bump Standards-Version to 3.8.3 (no changes needed).
+  * Add new patch to fix crash when unrar isn't installed. (Closes: #554904)
+  * Add README.sources to fix patch-system-but-no-source-readme lintian warning.
+  * Minor cleanup in README.Debian and NEWS.Debian.
+
+ -- Severin Heiniger <severinheiniger@gmail.com>  Sun, 08 Nov 2009 11:20:53 +0100
+
+hellanzb (0.13-5.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Build-Depend on python-all-dev >= 2.5.4 for python.mk.
+
+ -- Kumar Appaiah <akumar@debian.org>  Mon, 19 Oct 2009 18:08:56 -0500
+
+hellanzb (0.13-5.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix "manipulates site-packages/ directly, failing with Python 2.6"
+    Applied and uploaded Kumar's patch, thanks dude! (Closes: #547824)
+
+ -- Bastian Venthur <venthur@debian.org>  Sat, 17 Oct 2009 16:37:22 +0200
+
+hellanzb (0.13-5) unstable; urgency=low
+
+  * Add python-openssl dependency (Closes: #520601).
+  * Bump Standards-Version.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Tue, 31 Mar 2009 09:51:48 +0200
+
+hellanzb (0.13-4) unstable; urgency=low
+
+  * Fix mishandling of group values with extra whitespace (Closes: #495518).
+  * Bump Standards-Version.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Wed, 11 Mar 2009 21:38:14 +0100
+
+hellanzb (0.13-3) unstable; urgency=low
+
+  * Merge 003-Fix_multiples_hosts patch, thanks to Benoit Boissinot
+    (Closes: #452079).
+  * Fix manpage 'SH NAME' section (bad whatis entry).
+  * Bump Standards-Version to 3.7.3 (no changes needed).
+  * Move homepage to new dpkg standard field.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Fri, 04 Jan 2008 23:39:34 +0100
+
+hellanzb (0.13-2) unstable; urgency=low
+
+  * Add "Recommends" on python-yenc (Closes: #418581).
+  * Update supported archs for "unrar" suggest.
+  * Add XS-Vcs fields.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Wed, 09 May 2007 09:15:22 +0200
+
+hellanzb (0.13-1) unstable; urgency=low
+
+  * New upstream release (Closes: #418580).
+  * Uploading to unstable.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Tue, 10 Apr 2007 21:58:53 +0200
+
+hellanzb (0.12-1) experimental; urgency=low
+
+  * New upstream release (Closes: #412207).
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Sat, 24 Feb 2007 20:37:04 +0100
+
+hellanzb (0.11-1) experimental; urgency=low
+
+  * New upstream release.
+  * Update conffile search path patch.
+  * Add a new patch to choose where the XMLRPC server will be binded,
+    default 127.0.0.1 (Closes: #410349).
+  * Do not ship a hellanzb.cnf anymore; patch and install the upstream one.
+  * Attention: Configuration file has changed. See NEWS.Debian.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Sat, 10 Feb 2007 15:01:20 +0100
+
+hellanzb (0.10-1) unstable; urgency=low
+
+  * New upstream release.
+    Update default conf file.
+    Update conffile search path patch.
+  * Add debian/watch.
+  * Bump version in manpage, fix many typos.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Mon, 27 Nov 2006 01:21:30 +0100
+
+hellanzb (0.9-3) unstable; urgency=low
+
+  * debian/control: Drop XB-Python-Version.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Sun, 19 Nov 2006 03:26:50 +0100
+
+hellanzb (0.9-2) unstable; urgency=low
+
+  * Packaging update to fit the latest python policy draft.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Fri, 10 Nov 2006 01:55:36 +0100
+
+hellanzb (0.9-1) unstable; urgency=low
+
+  * Initial release (Closes: #386706).
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Fri,  8 Sep 2006 21:12:36 +0200
